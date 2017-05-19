@@ -24,6 +24,7 @@
   <property>
     <name>apex.app-param.kafkaBrokerList</name>
     <description>Specify Kafka Broker(s) list. E.g: broker1.com:9092, broker2.com:9093, broker3.com:9094</description>
+    <value>localhost:9092</value>
   </property>
   <property>
     <name>dt.operator.kafkaInput.prop.clusters</name>
@@ -33,6 +34,7 @@
   <property>
     <name>apex.app-param.kafkaTopicName</name>
     <description>Specify topic name of Kafka. E.g: transactions</description>
+    <value>test</value>
   </property>
   <property>
     <name>dt.operator.kafkaInput.prop.topics</name>
@@ -41,7 +43,7 @@
 
   <property>
     <name>apex.app-param.initialOffsetOfTopicForKafkaConsumer</name>
-    <value>LATEST</value>
+    <value>EARLIEST</value>
     <description>Specify initial offset from the position where Kafka consumer starts reading messages. E.g: LATEST</description>
   </property>
   <property>
@@ -62,6 +64,7 @@
   <property>
     <name>apex.app-param.outputDirectoryPath</name>
     <description>Specify output directory path on HDFS. E.g: hdfs://destination-namenode-service:port/user/dtuser/path-to-output-directory</description>
+    <value>/tmp</value>
   </property>
   <property>
     <name>dt.operator.fileOutput.prop.filePath</name>
@@ -71,6 +74,7 @@
   <property>
     <name>apex.app-param.outputFileName</name>
     <description>Specify output directory path on HDFS. E.g: output-file-name.txt</description>
+    <value>kafka-out.txt</value>
   </property>
   <property>
     <name>dt.operator.fileOutput.prop.outputFileName</name>
@@ -183,5 +187,19 @@
     <value>${apex.app-param.tupleClassNameForTransformOutput}</value>
   </property>
 
+  <property>
+    <name>apex.plugin.stram.plugins</name>
+    <value>com.datatorrent.metrics.plugin.MetricWriterPlugin</value>
+  </property>
+  <property>
+    <name>dt.metrics.baseDir</name>
+    <value>datatorrent/metrics</value>
+  </property>
+  
+  <property>
+  <name>dt.loggers.level</name>
+  <value>com.datatorrent.metrics.*:DEBUG,org.apache.*:INFO</value>
+</property>
+  
 </configuration>
 

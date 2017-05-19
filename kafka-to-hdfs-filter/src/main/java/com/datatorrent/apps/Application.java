@@ -19,14 +19,9 @@
 
 package com.datatorrent.apps;
 
-import java.util.Map;
-
-
 import org.apache.apex.malhar.kafka.KafkaSinglePortInputOperator;
 import org.apache.apex.malhar.lib.fs.GenericFileOutputOperator.StringFileOutputOperator;
 import org.apache.hadoop.conf.Configuration;
-
-import com.google.common.collect.Maps;
 
 import com.datatorrent.api.DAG;
 import com.datatorrent.api.StreamingApplication;
@@ -34,7 +29,7 @@ import com.datatorrent.api.annotation.ApplicationAnnotation;
 import com.datatorrent.contrib.formatter.CsvFormatter;
 import com.datatorrent.contrib.parser.CsvParser;
 import com.datatorrent.lib.filter.FilterOperator;
-import com.datatorrent.lib.transform.TransformOperator;
+import com.datatorrent.metrics.appmetrics.AppMetricComputeService;
 
 @ApplicationAnnotation(name = "Kafka-to-HDFS-Filter")
 public class Application implements StreamingApplication
@@ -52,6 +47,8 @@ public class Application implements StreamingApplication
     dag.addStream("pojo", csvParser.out, filterOperator.input);
     dag.addStream("filtered", filterOperator.truePort, formatter.in);
     dag.addStream("string", formatter.out, fileOutput.input);
+    
+    dag.setAttribute(AppMetricComputeService.APP_METRIC_COMPUTE_SERVICE, new AppMetricsService());
 
     /*
      * To add custom logic to your DAG, add your custom operator here with
