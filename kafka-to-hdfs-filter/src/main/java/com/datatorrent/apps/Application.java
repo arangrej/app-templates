@@ -23,6 +23,7 @@ import org.apache.apex.malhar.kafka.KafkaSinglePortInputOperator;
 import org.apache.apex.malhar.lib.fs.GenericFileOutputOperator.StringFileOutputOperator;
 import org.apache.hadoop.conf.Configuration;
 
+import com.datatorrent.api.Context;
 import com.datatorrent.api.DAG;
 import com.datatorrent.api.StreamingApplication;
 import com.datatorrent.api.annotation.ApplicationAnnotation;
@@ -49,6 +50,7 @@ public class Application implements StreamingApplication
     dag.addStream("string", formatter.out, fileOutput.input);
     
     dag.setAttribute(AppMetricComputeService.APP_METRIC_COMPUTE_SERVICE, new AppMetricsService());
+    dag.setAttribute(Context.DAGContext.METRICS_TRANSPORT, null);
 
     /*
      * To add custom logic to your DAG, add your custom operator here with

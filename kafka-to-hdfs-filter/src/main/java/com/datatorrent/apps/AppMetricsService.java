@@ -5,6 +5,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.apache.commons.lang.math.RandomUtils;
+
 import com.google.common.collect.Maps;
 
 import com.datatorrent.metrics.appmetrics.AppMetricComputeService.DefaultAppMetricComputeService;
@@ -27,6 +29,15 @@ public class AppMetricsService extends DefaultAppMetricComputeService
         output.put("percentFiltered", percentFiltered);
         LOG.info("percentFiltered {}", percentFiltered);
       }
+      else{
+        double random = RandomUtils.JVM_RANDOM.nextDouble()*100;
+        output.put("percentFiltered", random);
+        LOG.info("percentFiltered {}", random);
+      }
+    }
+    else{
+      output.put("percentFiltered", 10.0d);
+      LOG.info("percentFiltered {}", 10.0d);
     }
     return output;
   }
